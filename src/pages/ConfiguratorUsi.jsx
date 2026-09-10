@@ -8,13 +8,13 @@ import { useState } from 'react'
 
 // Modele — id unic, nume afișat, cale imagine (opțional), preț de bază (RON)
 const MODELS = [
-  { id: 'oslo', name: 'Ușă interior Oslo', img: '/images/usi/oslo.jpg', base: 850 },
-  { id: 'bergen', name: 'Ușă interior Bergen', img: '/images/usi/bergen.jpg', base: 920 },
-  { id: 'tromso', name: 'Ușă interior Tromsø', img: '/images/usi/tromso.jpg', base: 990 },
-  { id: 'stejar-natur', name: 'Ușă interior Stejar Natur', img: '/images/usi/stejar.jpg', base: 1150 },
-  { id: 'blindata-x7', name: 'Ușă exterior Blindată X7', img: '/images/usi/x7.jpg', base: 2400 },
-  { id: 'blindata-x9', name: 'Ușă exterior Blindată X9', img: '/images/usi/x9.jpg', base: 2850 },
-  { id: 'aluminiu-slim', name: 'Ușă exterior Aluminiu Slim', img: '/images/usi/slim.jpg', base: 3200 },
+  { id: 'oslo', name: 'Ușă interior Oslo', img: 'images/usi/oslo.jpg', base: 850 },
+  { id: 'bergen', name: 'Ușă interior Bergen', img: 'images/usi/bergen.jpg', base: 920 },
+  { id: 'tromso', name: 'Ușă interior Tromsø', img: 'images/usi/tromso.jpg', base: 990 },
+  { id: 'stejar-natur', name: 'Ușă interior Stejar Natur', img: 'images/usi/stejar.jpg', base: 1150 },
+  { id: 'blindata-x7', name: 'Ușă exterior Blindată X7', img: 'images/usi/x7.jpg', base: 2400 },
+  { id: 'blindata-x9', name: 'Ușă exterior Blindată X9', img: 'images/usi/x9.jpg', base: 2850 },
+  { id: 'aluminiu-slim', name: 'Ușă exterior Aluminiu Slim', img: 'images/usi/slim.jpg', base: 3200 },
 ]
 
 // Culori / finisaje — id, nume, hex (pentru mostră), supliment de preț (RON)
