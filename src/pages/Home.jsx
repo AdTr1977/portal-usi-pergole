@@ -19,23 +19,31 @@ export default function Home() {
       <section className="section section-soft hairline-top">
         <div className="container">
           <div className="grid-2">
-            <Link to="/produse/usi" className="tile" style={{ background: '#fff' }}>
-              <div className="photo-placeholder" style={{ marginBottom: 18 }}>
-                imagine ușă — de adăugat
+            <Link to="/produse/usi" className="tile" style={{ background: '#fff', padding: 0, overflow: 'hidden' }}>
+              <img
+                src="https://picsum.photos/seed/studioup-usi/800/600"
+                alt="Ușă — imagine temporară"
+                style={{ width: '100%', aspectRatio: '4/3', objectFit: 'cover', display: 'block' }}
+              />
+              <div style={{ padding: 28 }}>
+                <h3>Uși</h3>
+                <p style={{ marginTop: 8, fontSize: 14 }}>
+                  Interior și exterior, modele fixe, finisaje și dimensiuni standard.
+                </p>
               </div>
-              <h3>Uși</h3>
-              <p style={{ marginTop: 8, fontSize: 14 }}>
-                Interior și exterior, modele fixe, finisaje și dimensiuni standard.
-              </p>
             </Link>
-            <Link to="/produse/pergole" className="tile" style={{ background: '#fff' }}>
-              <div className="photo-placeholder" style={{ marginBottom: 18 }}>
-                imagine pergolă — de adăugat
+            <Link to="/produse/pergole" className="tile" style={{ background: '#fff', padding: 0, overflow: 'hidden' }}>
+              <img
+                src="https://picsum.photos/seed/studioup-pergole/800/600"
+                alt="Pergolă — imagine temporară"
+                style={{ width: '100%', aspectRatio: '4/3', objectFit: 'cover', display: 'block' }}
+              />
+              <div style={{ padding: 28 }}>
+                <h3>Pergole</h3>
+                <p style={{ marginTop: 8, fontSize: 14 }}>
+                  Structuri realizate pe măsură, în funcție de spațiul disponibil.
+                </p>
               </div>
-              <h3>Pergole</h3>
-              <p style={{ marginTop: 8, fontSize: 14 }}>
-                Structuri realizate pe măsură, în funcție de spațiul disponibil.
-              </p>
             </Link>
           </div>
         </div>
