@@ -1,4 +1,11 @@
 import { Link } from 'react-router-dom'
+import ImageWithFallback from '../components/ImageWithFallback.jsx'
+
+const CATEGORII = [
+  { label: 'Ușă interior', img: 'images/produse-usi/interior.jpg' },
+  { label: 'Ușă exterior', img: 'images/produse-usi/exterior.jpg' },
+  { label: 'Ușă blindată', img: 'images/produse-usi/blindata.jpg' },
+]
 
 export default function ProdusUsi() {
   return (
@@ -15,10 +22,14 @@ export default function ProdusUsi() {
         </div>
 
         <div className="grid-3" style={{ marginTop: 48 }}>
-          {['Ușă interior', 'Ușă exterior', 'Ușă blindată'].map((label) => (
-            <div key={label}>
-              <div className="photo-placeholder">imagine — {label.toLowerCase()}</div>
-              <h3 style={{ marginTop: 12, fontSize: 15 }}>{label}</h3>
+          {CATEGORII.map((cat) => (
+            <div key={cat.label}>
+              <ImageWithFallback
+                src={cat.img}
+                alt={cat.label}
+                label={`imagine — ${cat.label.toLowerCase()}`}
+              />
+              <h3 style={{ marginTop: 12, fontSize: 15 }}>{cat.label}</h3>
             </div>
           ))}
         </div>
