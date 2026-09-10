@@ -100,3 +100,127 @@ p { color: var(--grey); margin: 0; }
   transition: border-color 0.2s;
 }
 .tile:hover { border-color: var(--ink); }
+
+/* ---------- Navbar ---------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+.navbar-brand {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.navbar-menu {
+  display: flex;
+  gap: 34px;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.navbar-item { position: relative; }
+.navbar-link {
+  font-size: 14px;
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 26px 0;
+  background: none;
+  border: none;
+  font-family: inherit;
+}
+.navbar-link-btn { padding: 26px 0; }
+
+.navbar-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  min-width: 190px;
+  padding: 6px 0;
+  list-style: none;
+  margin: 0;
+}
+.navbar-dropdown.open { display: block; }
+.navbar-dropdown-link {
+  display: block;
+  padding: 11px 18px;
+  font-size: 14px;
+  color: var(--ink);
+}
+.navbar-dropdown-link:hover { background: var(--bg-soft); }
+
+/* Hamburger button — hidden on desktop */
+.navbar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+}
+.navbar-toggle-bar,
+.navbar-toggle-bar::before,
+.navbar-toggle-bar::after {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: var(--ink);
+  position: relative;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.navbar-toggle-bar::before { position: absolute; top: -6px; }
+.navbar-toggle-bar::after { position: absolute; top: 6px; }
+.navbar-toggle-bar.open { background: transparent; }
+.navbar-toggle-bar.open::before { transform: translateY(6px) rotate(45deg); }
+.navbar-toggle-bar.open::after { transform: translateY(-6px) rotate(-45deg); }
+
+@media (max-width: 860px) {
+  .navbar-toggle { display: flex; }
+
+  .navbar-menu {
+    display: none;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 4px 0 12px;
+  }
+  .navbar-menu.open { display: flex; }
+
+  .navbar-item { width: 100%; }
+  .navbar-link, .navbar-link-btn {
+    width: 100%;
+    padding: 15px 28px;
+    justify-content: space-between;
+  }
+  .navbar-dropdown {
+    position: static;
+    border: none;
+    padding: 0 0 0 28px;
+    background: var(--bg-soft);
+  }
+  .navbar-dropdown-link { padding: 13px 28px 13px 14px; }
+}
