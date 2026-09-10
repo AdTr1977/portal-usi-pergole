@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import ImageWithFallback from '../components/ImageWithFallback.jsx'
 
 export default function Home() {
   return (
@@ -20,10 +21,10 @@ export default function Home() {
         <div className="container">
           <div className="grid-2">
             <Link to="/produse/usi" className="tile" style={{ background: '#fff', padding: 0, overflow: 'hidden' }}>
-              <img
-                src="https://picsum.photos/seed/studioup-usi/800/600"
-                alt="Ușă — imagine temporară"
-                style={{ width: '100%', aspectRatio: '4/3', objectFit: 'cover', display: 'block' }}
+              <ImageWithFallback
+                src="images/home/usa.jpg"
+                alt="Ușă"
+                label="imagine ușă — de adăugat"
               />
               <div style={{ padding: 28 }}>
                 <h3>Uși</h3>
@@ -33,10 +34,10 @@ export default function Home() {
               </div>
             </Link>
             <Link to="/produse/pergole" className="tile" style={{ background: '#fff', padding: 0, overflow: 'hidden' }}>
-              <img
-                src="https://picsum.photos/seed/studioup-pergole/800/600"
-                alt="Pergolă — imagine temporară"
-                style={{ width: '100%', aspectRatio: '4/3', objectFit: 'cover', display: 'block' }}
+              <ImageWithFallback
+                src="images/home/pergola.jpg"
+                alt="Pergolă"
+                label="imagine pergolă — de adăugat"
               />
               <div style={{ padding: 28 }}>
                 <h3>Pergole</h3>
