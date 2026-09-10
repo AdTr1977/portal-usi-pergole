@@ -28,7 +28,7 @@ jobs:
 
       - name: Instalează dependențele și compilează
         run: |
-          npm ci
+          npm install
           npm run build
 
       - name: Pregătește fișierele pentru Pages
