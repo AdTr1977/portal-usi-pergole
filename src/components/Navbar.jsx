@@ -1,65 +1,60 @@
-import { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { useState, useRef, useEffect } from 'react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 
 // ★ Editează aici numele afișat al brandului
 const BRAND_NAME = 'Studio UP'
 
-const NAV_STYLES = {
-  bar: {
-    position: 'sticky', top: 0, zIndex: 50,
-    background: '#fff', borderBottom: '1px solid rgba(17,17,17,0.14)',
-  },
-  inner: {
-    maxWidth: 1180, margin: '0 auto', padding: '0 28px',
-    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-    height: 72,
-  },
-  brand: { fontSize: 18, fontWeight: 500, letterSpacing: '-0.01em' },
-  menu: { display: 'flex', gap: 34, alignItems: 'center', listStyle: 'none', margin: 0, padding: 0 },
-  item: { position: 'relative' },
-  link: {
-    fontSize: 14, color: '#111', cursor: 'pointer',
-    display: 'flex', alignItems: 'center', gap: 6, padding: '26px 0',
-  },
-  caret: { fontSize: 10, color: '#9a9a9a' },
-  dropdown: {
-    position: 'absolute', top: '100%', left: 0,
-    background: '#fff', border: '1px solid rgba(17,17,17,0.14)',
-    minWidth: 200, padding: '6px 0',
-  },
-  dropdownLink: {
-    display: 'block', padding: '11px 18px', fontSize: 14, color: '#111',
-  },
+function ChevronDown() {
+  return <span style={{ fontSize: 10, color: '#9a9a9a' }}>▾</span>
 }
 
-function Dropdown({ label, items, open, onEnter, onLeave }) {
+function Dropdown({ label, items, sectionKey, openSection, setOpenSection, onNavigate }) {
+  const isOpen = openSection === sectionKey
   return (
-    <li style={NAV_STYLES.item} onMouseEnter={onEnter} onMouseLeave={onLeave}>
-      <span style={NAV_STYLES.link}>
-        {label} <span style={NAV_STYLES.caret}>▾</span>
-      </span>
-      {open && (
-        <ul style={{ ...NAV_STYLES.dropdown, listStyle: 'none', margin: 0 }}>
-          {items.map((it) => (
-            <li key={it.to}>
-              <Link
-                to={it.to}
-                style={NAV_STYLES.dropdownLink}
-                onMouseOver={(e) => (e.currentTarget.style.background = '#fafafa')}
-                onMouseOut={(e) => (e.currentTarget.style.background = 'transparent')}
-              >
-                {it.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+    <li className="navbar-item">
+      <button
+        type="button"
+        className="navbar-link navbar-link-btn"
+        onClick={() => setOpenSection(isOpen ? null : sectionKey)}
+        aria-expanded={isOpen}
+      >
+        {label} <ChevronDown />
+      </button>
+      <ul className={`navbar-dropdown${isOpen ? ' open' : ''}`}>
+        {items.map((it) => (
+          <li key={it.to}>
+            <Link to={it.to} className="navbar-dropdown-link" onClick={onNavigate}>
+              {it.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </li>
   )
 }
 
 export default function Navbar() {
-  const [openMenu, setOpenMenu] = useState(null) // 'produse' | 'configurator' | null
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [openSection, setOpenSection] = useState(null) // 'produse' | 'configurator' | null
+  const navRef = useRef(null)
+  const location = useLocation()
+
+  // Închide meniul mobil și dropdown-urile la schimbarea paginii
+  useEffect(() => {
+    setMobileOpen(false)
+    setOpenSection(null)
+  }, [location.pathname])
+
+  // Închide dropdown-ul dacă se dă click în afara navbar-ului
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (navRef.current && !navRef.current.contains(e.target)) {
+        setOpenSection(null)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const produseItems = [
     { to: '/produse/usi', label: 'Uși' },
@@ -71,29 +66,42 @@ export default function Navbar() {
   ]
 
   return (
-    <nav style={NAV_STYLES.bar}>
-      <div style={NAV_STYLES.inner}>
-        <Link to="/" style={NAV_STYLES.brand}>{BRAND_NAME}</Link>
-        <ul style={NAV_STYLES.menu}>
+    <nav className="navbar" ref={navRef}>
+      <div className="navbar-inner container">
+        <Link to="/" className="navbar-brand">{BRAND_NAME}</Link>
+
+        <button
+          type="button"
+          className="navbar-toggle"
+          aria-label="Deschide meniul"
+          aria-expanded={mobileOpen}
+          onClick={() => setMobileOpen((v) => !v)}
+        >
+          <span className={`navbar-toggle-bar${mobileOpen ? ' open' : ''}`} />
+        </button>
+
+        <ul className={`navbar-menu${mobileOpen ? ' open' : ''}`}>
           <Dropdown
             label="Produse"
             items={produseItems}
-            open={openMenu === 'produse'}
-            onEnter={() => setOpenMenu('produse')}
-            onLeave={() => setOpenMenu(null)}
+            sectionKey="produse"
+            openSection={openSection}
+            setOpenSection={setOpenSection}
+            onNavigate={() => setMobileOpen(false)}
           />
           <Dropdown
             label="Configurator"
             items={configuratorItems}
-            open={openMenu === 'configurator'}
-            onEnter={() => setOpenMenu('configurator')}
-            onLeave={() => setOpenMenu(null)}
+            sectionKey="configurator"
+            openSection={openSection}
+            setOpenSection={setOpenSection}
+            onNavigate={() => setMobileOpen(false)}
           />
-          <li>
-            <NavLink to="/portofoliu" style={NAV_STYLES.link}>Portofoliu</NavLink>
+          <li className="navbar-item">
+            <NavLink to="/portofoliu" className="navbar-link">Portofoliu</NavLink>
           </li>
-          <li>
-            <NavLink to="/contact" style={NAV_STYLES.link}>Contact</NavLink>
+          <li className="navbar-item">
+            <NavLink to="/contact" className="navbar-link">Contact</NavLink>
           </li>
         </ul>
       </div>
